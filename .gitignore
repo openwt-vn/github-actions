@@ -1,0 +1,4 @@
+.env
+runner-data/
+work/
+docker-compose.yml
