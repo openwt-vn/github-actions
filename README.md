@@ -52,7 +52,7 @@ Set `ACCESS_TOKEN` and `ORG_NAME`, then:
 ```sh
 ./gen-compose.sh
 docker compose up -d --remove-orphans
-docker compose logs -f github-runner-1
+docker compose logs -f runner-1
 ```
 
 On Windows, run `gen-compose.cmd` instead of `./gen-compose.sh`.

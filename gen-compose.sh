@@ -93,7 +93,7 @@ names=
 i=1
 while [ "$i" -le "$count" ]; do
     runner_name="${prefix}-${i}"
-    service="github-runner-${i}"
+    service="$runner_name"
     if [ -z "$names" ]; then
         names=$runner_name
     else

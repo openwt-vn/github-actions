@@ -63,7 +63,7 @@ $names = @()
 for ($i = 1; $i -le $count; $i++) {
     $runnerName = "$prefix-$i"
     $names += $runnerName
-    $service = "github-runner-$i"
+    $service = $runnerName
 
     New-Item -ItemType Directory -Force -Path (Join-Path $root "runner-data\$i") | Out-Null
     New-Item -ItemType Directory -Force -Path (Join-Path $root "work\$i") | Out-Null

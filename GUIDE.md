@@ -76,7 +76,7 @@ Windows, from the project directory:
 ```bat
 gen-compose.cmd
 docker compose up -d --remove-orphans
-docker compose logs -f github-runner-1
+docker compose logs -f runner-1
 ```
 
 macOS or Linux:
@@ -85,7 +85,7 @@ macOS or Linux:
 chmod +x gen-compose.sh
 ./gen-compose.sh
 docker compose up -d --remove-orphans
-docker compose logs -f github-runner-1
+docker compose logs -f runner-1
 ```
 
 Both commands read `.env` and write `docker-compose.yml`. Do not edit the Compose file by hand. Change `.env`, then run the command again.
