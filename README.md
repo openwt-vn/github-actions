@@ -70,6 +70,7 @@ The runner is ready when the log prints `Listening for Jobs`.
 | `RUNNER_COUNT` | How many containers to create |
 | `RUNNER_NAME_PREFIX` | Names become `runner-1`, `runner-2`, and so on |
 | `LABELS` | Extra labels. The default custom label is `docker` |
+| `RUNNER_NETWORK_MODE` | Optional. `host` puts the runner containers on the host network, so a job reaches the ports of its service containers with `localhost` |
 
 The containers are Linux, even when the host is Windows. A job that needs `runs-on: windows` needs a Windows runner.
 

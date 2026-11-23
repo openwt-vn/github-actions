@@ -70,6 +70,16 @@ case "$prefix" in
         ;;
 esac
 
+# Empty keeps the default bridge network. `host` puts the runner containers on the Docker host's network.
+network_mode=$(get_value RUNNER_NETWORK_MODE)
+case "$network_mode" in
+    ''|host) ;;
+    *)
+        echo 'RUNNER_NETWORK_MODE must be empty or host in .env' >&2
+        exit 1
+        ;;
+esac
+
 scope=$(get_value RUNNER_SCOPE)
 if [ -z "$scope" ]; then
     scope=repo
@@ -120,6 +130,9 @@ while [ "$i" -le "$count" ]; do
       - ./runner-data/${i}:/runner/data
       - ./work/${i}:/tmp/runner
 EOF
+    if [ "$network_mode" = host ]; then
+        printf '    network_mode: host\n' >> "$tmp"
+    fi
     i=$((i + 1))
 done
 

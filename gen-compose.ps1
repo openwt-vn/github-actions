@@ -44,6 +44,12 @@ if ($prefix -notmatch '^[A-Za-z0-9][A-Za-z0-9_-]*$') {
     throw 'RUNNER_NAME_PREFIX may contain only letters, digits, underscores, and hyphens'
 }
 
+# Empty keeps the default bridge network. 'host' puts the runner containers on the Docker host's network.
+$networkMode = $vars['RUNNER_NETWORK_MODE']
+if (-not [string]::IsNullOrWhiteSpace($networkMode) -and $networkMode -ne 'host') {
+    throw 'RUNNER_NETWORK_MODE must be empty or host in .env'
+}
+
 $scope = $vars['RUNNER_SCOPE']
 if ([string]::IsNullOrWhiteSpace($scope)) {
     $scope = 'repo'
@@ -85,6 +91,9 @@ for ($i = 1; $i -le $count; $i++) {
     [void]$yaml.AppendLine('      - /var/run/docker.sock:/var/run/docker.sock')
     [void]$yaml.AppendLine("      - ./runner-data/${i}:/runner/data")
     [void]$yaml.AppendLine("      - ./work/${i}:/tmp/runner")
+    if ($networkMode -eq 'host') {
+        [void]$yaml.AppendLine('    network_mode: host')
+    }
 }
 
 $utf8 = New-Object System.Text.UTF8Encoding $false

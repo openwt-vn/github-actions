@@ -69,6 +69,8 @@ ORG_NAME=your-org
 
 `RUNNER_COUNT` is how many containers to generate. They share the organization and the token. Each container gets its own name (`runner-1`, `runner-2`, ...) and its own `runner-data` and `work` directories. `docker-compose.yml` is generated and is not committed.
 
+`RUNNER_NETWORK_MODE` is optional. Leave it out and the runner containers use the default bridge network. A job that starts a service container with a published port (`services:` in a workflow) and connects to it with `localhost` needs `RUNNER_NETWORK_MODE=host`: on the bridge network `localhost` is the runner container itself, and the port is published on the Docker host, so the connection is refused. With `host`, the runner containers share the network of the host and do not listen on any port themselves.
+
 ## Generate and start
 
 Windows, from the project directory:
